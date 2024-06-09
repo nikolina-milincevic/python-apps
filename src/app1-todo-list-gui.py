@@ -40,5 +40,7 @@ while True:
             window["todo"].update(value=values["todos"][0])
         case sg.WIN_CLOSED:
             break
-    
+# break only breaks the while loop
+# exit() makes the whole program to stop and nothing
+# after the while loop won't be executed - it exists the whole program
 window.close()
