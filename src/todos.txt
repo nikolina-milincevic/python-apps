@@ -7,3 +7,7 @@ fix the bed
 make a pizza
 make the bed
 make a dinner
+make a dinner
+clean the table
+pick a recipe
+fix the window
