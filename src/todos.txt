@@ -1,13 +1,10 @@
 shower
-clean the room
 bake a cake
 play
-clean the bag
 fix the bed
 make a pizza
 make the bed
 make a dinner
-make a dinner
 clean the table
 pick a recipe
-fix the window
+type a code
