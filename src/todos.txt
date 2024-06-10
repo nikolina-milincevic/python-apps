@@ -1,10 +1,5 @@
 shower
+make a lunch and dinner
 bake a cake
-play
-fix the bed
-make a pizza
-make the bed
-make a dinner
-clean the table
-pick a recipe
-type a code
+clean the room
+take out the trash

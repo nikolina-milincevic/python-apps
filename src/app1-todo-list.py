@@ -13,14 +13,13 @@ while True:
         todo = user_action[4:]
             
         todos = functions.get_todos()
-        todos.append(todo + "\n")
+        todos.append(todo)
         functions.write_todos(todos)
                 
     elif user_action.startswith("show"):
         todos = functions.get_todos()
             
         for index, item in enumerate(todos):
-            item = item.strip("\n")
             row = f"{index+1}-{item}" 
             print(row)
     elif user_action.startswith("edit"):
@@ -31,7 +30,7 @@ while True:
                 
             todos = functions.get_todos()  
             new_todo = input("Write your new to do: ")
-            todos[number] = new_todo + "\n"
+            todos[number] = new_todo 
             functions.write_todos(todos)
     
         except ValueError:
@@ -44,7 +43,7 @@ while True:
             number = number - 1
                 
             todos = functions.get_todos()      
-            todo_to_remove = todos[number].strip("\n")
+            todo_to_remove = todos[number]
             todos.pop(number)
             functions.write_todos(todos)
                     
