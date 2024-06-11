@@ -38,7 +38,8 @@ window = sg.Window("This is my To-do App",
 while True:
     event, values = window.read(timeout=10)
     # timeout=10 means that the loop will be executed every 10 milisec
-    window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
+    if event != sg.WIN_CLOSED:
+        window["clock"].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
 
     match event:
         case "Add":

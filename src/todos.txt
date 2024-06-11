@@ -3,3 +3,5 @@ make a lunch and dinner
 bake a cake
 clean the room
 take out the trash
+play the piano
+write a code
