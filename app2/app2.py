@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas
 
 st.set_page_config(layout="wide")
 
@@ -21,3 +22,19 @@ but goes under both of the existing columns.
 """
 st.write(under_content)
     
+col3, empty_col, col4 = st.columns([1.5, 0.5, 1.5])
+df = pandas.read_csv("./app2/data.csv", sep=";")
+
+with col3:
+    for index, row in df[:10].iterrows():
+        st.header(row["title"])
+        st.write(row["description"])
+        st.image("./app2/images/" + row["image"])
+        st.write(f"[Source Code]({row['url']})")
+        
+with col4:
+    for index, row in df[10:].iterrows():
+        st.header(row["title"])
+        st.write(row["description"])
+        st.image("./app2/images/" + row["image"])
+        st.write(f"[Source Code]({row['url']})")
