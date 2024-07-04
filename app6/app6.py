@@ -1,11 +1,18 @@
 from flask import Flask, render_template
 import pandas as pd
 
-app = Flask("Website")
+app = Flask(__name__)
+# giving __name__ as an argument allows me 
+# to use templates relative to the directory
+# where my python file is
+# however, that doesn't hold for the files i'm opening
+
+stations = pd.read_csv("app6/data_small/stations.txt", skiprows=17)
+stations = stations[["STAID", "STANAME                                 "]]
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html", data=stations.to_html())
 
 @app.route("/api/v1/<station>/<date>")
 def about(station, date):
@@ -18,9 +25,3 @@ def about(station, date):
 
 if __name__ == "__main__":
     app.run(debug=True)
-# execute only if run from this script
-# why - because we may want to use only certain elements
-# from this app in another project and not to run this whole script 
-# as an argument we can add port=5001
-# that is used when we have to apps in order for them not to
-# crash, we execute them on diff ports (default is 5000)
