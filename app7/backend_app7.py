@@ -9,7 +9,7 @@ import requests
 
 API_KEY = "141710af2113bab9f55ef73e1bcd33d5"
 
-def get_data(place_local, days_local=None, option_local=None):
+def get_data(place_local, days_local=None):
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={place_local}&appid={API_KEY}"
     response = requests.get(url)
     data = response.json()
@@ -17,11 +17,7 @@ def get_data(place_local, days_local=None, option_local=None):
     # the data has values for every 3 hours, that is, 8 values for 1 day
     nr_values = 8 * days_local
     filtered_data = filtered_data[:nr_values]
-    if option_local == "Temperature":
-        filtered_data = [dicti["main"]["temp"] for dicti in filtered_data]
-    if option_local == "Sky":
-        filtered_data = [dicti["weather"]["main"] for dicti in filtered_data]
     return filtered_data
 
 if __name__ == "__main__":
-    print(get_data(place_local="Tokyo", days_local=3, option_local="Temperature"))
+    print(get_data(place_local="Tokyo", days_local=3))
