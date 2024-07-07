@@ -26,4 +26,5 @@ My project 2 = company website with contact form \
 My project 4 = for given text files, the app gives a pdf output where content of each file is writen on separate pages with title of the page denoted as a title of the text file.\
 My project 5 =  access news about a particular topic and send them by email.\
 My project 6 = dictionary app that shows the definitions of the word written in url. The app reads words and definitions from an external excel files. Data analysis in Jupyter is in additional ipynb file.\
-My project 7 = one selects options (GDP, Happines, Generosity) from 2 selectboxes and gets a scatter plot of selected variables. Data is read from an external excel file. 
+My project 7 = one selects options (GDP, Happines, Generosity) from 2 selectboxes and gets a scatter plot of selected variables. Data is read from an external excel file. \
+My project 8 = for a given folder with text files of diary entries, the app shows a graph of positivity and negativity scores for text tone
