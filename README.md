@@ -22,7 +22,8 @@ Using regex (regular expressions), we analyse the book Miracle in the Andes by N
 ### App 9
 detects moving objects in camera and sends a mail with attached photo of the object.
 ### App 10
-scraping.
+scraping.\
+Application that takes info about event from a webpage and saves it to a text file. If a new event is recognised, then email is send to inform about this event. 
 
 ### Other small projects:
 
@@ -33,4 +34,4 @@ My project 6 = dictionary app that shows the definitions of the word written in 
 My project 7 = one selects options (GDP, Happines, Generosity) from 2 selectboxes and gets a scatter plot of selected variables. Data is read from an external excel file. \
 My project 8 = for a given folder with text files of diary entries, the app shows a graph of positivity and negativity scores for text tone.\
 My project (in app9) = interface that turns on the camera and writes time and day of the week in the corner of the video.\
-
+My project (in app10) = scraping info about average temperature in the world, saving this to a text file, and making an interface which shows the dates and temperatures graphically.
