@@ -17,8 +17,12 @@ Adding station number and date in the past to url takes us to a webpage with inf
 temperature and sky forecast for future 1-5 days for any city.\
 Write a city, select number of days on a slider, and select whether you would like temperature graph forecast or sky images forecast. 
 ### App 8 
-book analysis in Jupyter.
+book analysis in Jupyter.\
 Using regex (regular expressions), we analyse the book Miracle in the Andes by Nando Parrado and answer some basic questions about the contents of the book.
+### App 9
+detects moving objects in camera and sends a mail with attached photo of the object.
+### App 10
+scraping.
 
 ### Other small projects:
 
@@ -27,4 +31,6 @@ My project 4 = for given text files, the app gives a pdf output where content of
 My project 5 =  access news about a particular topic and send them by email.\
 My project 6 = dictionary app that shows the definitions of the word written in url. The app reads words and definitions from an external excel files. Data analysis in Jupyter is in additional ipynb file.\
 My project 7 = one selects options (GDP, Happines, Generosity) from 2 selectboxes and gets a scatter plot of selected variables. Data is read from an external excel file. \
-My project 8 = for a given folder with text files of diary entries, the app shows a graph of positivity and negativity scores for text tone
+My project 8 = for a given folder with text files of diary entries, the app shows a graph of positivity and negativity scores for text tone.\
+My project (in app9) = interface that turns on the camera and writes time and day of the week in the corner of the video.\
+
