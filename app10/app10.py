@@ -3,9 +3,18 @@ import selectorlib
 import smtplib, ssl
 import os
 import time
+import mysql.connector
 
-
+SQL_USER = os.getenv("sql_user")
+SQL_PASSWORD = os.getenv("sql_password")
 URL = "https://programmer100.pythonanywhere.com/tours/"
+
+
+cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
+                                    host='localhost', 
+                                    database='my_db',
+                                    charset='utf8')
+
 
 
 def scrape(url):
@@ -37,25 +46,32 @@ def send_email(message):
     
     
 def store(extracted_info):
-    with open("app10/data.txt", "a") as file:
-        file.write(extracted_info + "\n")
+    row = extracted_info.split(",")
+    row = [item.strip() for item in row]
+    cursor = cnx.cursor(buffered = True)
+    cursor.execute('''INSERT INTO events VALUES(%s,%s,%s)''', row)
+    cnx.commit()
         
-        
-def read():
-    with open("app10/data.txt", "r") as file:
-        return file.read()
+def read(extracted_info):
+    row = extracted_info.split(",")
+    row = [item.strip() for item in row]
+    band, city, date = row
+    cursor = cnx.cursor(buffered = True)
+    cursor.execute('''SELECT * FROM events WHERE band=%s AND city=%s AND date=%s''', (band, city, date))
+    rows = cursor.fetchall()
+    return rows
     
 
 if __name__ == "__main__":
     while True:
         scraped = scrape(URL)
         extracted = extract(scraped)
-        content = read()
-        print(extracted)
         if extracted != "No upcoming tours":
-            if extracted not in content:
+            content = read(extracted)
+            if not content:
                 store(extracted)
-                send_email(message="Hey, new event was found!")
+                print("Email sent")
+                #send_email(message="Hey, new event was found!")
                 
         time.sleep(2)
         # This makes the app check for the events every 2 sec
