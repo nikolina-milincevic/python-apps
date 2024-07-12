@@ -25,7 +25,7 @@ class Event:
 
 
     def extract(self, source):
-        extractor = selectorlib.Extractor.from_yaml_file("extract.yaml")
+        extractor = selectorlib.Extractor.from_yaml_file("app11/introduction_to_oop/extract.yaml")
         value = extractor.extract(source)["tours"]
         return value
 
