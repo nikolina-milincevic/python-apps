@@ -87,7 +87,7 @@ class SecureCreditCard(CreditCard):
 
 print(df)
 hotel_id = input("Enter the id of the hotel: ")
-hotel = Hotel(hotel_id)
+hotel = SpaHotel(hotel_id)
 if hotel.available():
     credit_card = SecureCreditCard(number="1234567890123456")
     if credit_card.validate(expiration="12/26", holder="JOHN SMITH", cvc="123"):
@@ -96,6 +96,11 @@ if hotel.available():
             name = input("Enter your name: ")
             reservation_ticket = ReservationTicket(name, hotel)
             print(reservation_ticket.generate())
+            spa = input("Do you want to book a spa package? ")
+            if spa == "yes":
+                hotel.book_spa_package()
+                spa_ticket = SpaReservationTicket(name, hotel)
+                print(spa_ticket.generate())
         else:
             print("Credit card authentication failed")
     else:
