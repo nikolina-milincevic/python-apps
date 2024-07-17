@@ -1,6 +1,7 @@
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
     QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, \
-    QDialog, QVBoxLayout
+    QDialog, QVBoxLayout, QComboBox
 import sys
 import mysql.connector
 import os
@@ -28,6 +29,7 @@ class MainWindow(QMainWindow):
         
         file_menu_bar = self.menuBar().addMenu("&File")
         help_menu_bar = self.menuBar().addMenu("&Help")
+        edit_menu_bar = self.menuBar().addMenu("&Edit")
         
         add_student_action = QAction("Add Student", self)
         add_student_action.triggered.connect(self.insert)
@@ -39,6 +41,10 @@ class MainWindow(QMainWindow):
         # otherwise it would be unnecessary
         about_action.setMenuRole(QAction.MenuRole.NoRole)
         
+        search_action = QAction("Search", self)
+        edit_menu_bar.addAction(search_action)
+        search_action.triggered.connect(self.search)
+        
         self.table = QTableWidget()
         self.table.setColumnCount(4)
         self.table.setHorizontalHeaderLabels(("Id", "Name", "Course", "Mobile"))
@@ -46,6 +52,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.table)
     
     def load_data(self):
+        # table named students needs to be already instantiated in my_db database
+        # where id columns is primary key, not null and auto-increment
         cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
                               host="localhost", database="my_db")
         cursor = cnx.cursor(buffered=True)
@@ -65,6 +73,10 @@ class MainWindow(QMainWindow):
         dialog = InsertDialog()
         dialog.exec()
         
+    def search(self):
+        i_search = SearchDialog()
+        i_search.exec()
+        
     
 class InsertDialog(QDialog):
     def __init__(self):
@@ -75,11 +87,81 @@ class InsertDialog(QDialog):
         
         layout = QVBoxLayout()
         
-        student_name = QLineEdit()
-        student_name.setPlaceholderText("Name")
-        layout.addWidget(student_name)
+        # Add student name widget
+        self.student_name = QLineEdit()
+        self.student_name.setPlaceholderText("Name")
+        layout.addWidget(self.student_name)
+        
+        # Add combo box of courses
+        self.course_name = QComboBox()
+        courses = ["Biology", "Math", "Astronomy", "Physics"]
+        self.course_name.addItems(courses)
+        layout.addWidget(self.course_name)
+        
+        # Add mobile widget
+        self.mobile = QLineEdit()
+        self.mobile.setPlaceholderText("Mobile")
+        layout.addWidget(self.mobile)
+        
+        # Add a submit button
+        button = QPushButton("Submit")
+        button.clicked.connect(self.add_student)
+        layout.addWidget(button)
         
         self.setLayout(layout)
+    
+    def add_student(self):
+        name = self.student_name.text()
+        course = self.course_name.itemText(self.course_name.currentIndex())
+        mobile = self.mobile.text()
+        print(name, course, mobile)
+        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
+                              host="localhost", database="my_db")
+        cursor = cnx.cursor(buffered=True)
+        my_query = '''INSERT INTO students (name, course, mobile) VALUES (%s, %s, %s);'''
+        cursor.execute(my_query, (name, course, mobile))
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        student_management_system.load_data()
+        
+        
+class SearchDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Search Students")
+        self.setFixedWidth(300)
+        self.setFixedHeight(300)
+        
+        layout = QVBoxLayout()
+        
+        # Add search widget
+        self.student_name = QLineEdit()
+        self.student_name.setPlaceholderText("Name")
+        layout.addWidget(self.student_name)
+        
+        # Add a search button
+        button = QPushButton("Search")
+        button.clicked.connect(self.search)
+        layout.addWidget(button)
+        
+        self.setLayout(layout)
+        
+    def search(self):
+        name = self.student_name.text()
+        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
+                              host="localhost", database="my_db")
+        cursor = cnx.cursor(buffered=True)
+        my_query = '''SELECT * FROM students WHERE name = %s;'''
+        cursor.execute(my_query, (name,))
+        rows = cursor.fetchall()
+        print(rows)
+        items = student_management_system.table.findItems(name, Qt.MatchFlag.MatchFixedString)
+        for item in items:
+            student_management_system.table.item(item.row(), 1).setSelected(True)
+        cnx.commit()
+        cursor.close()
+        cnx.close()
                 
                 
         
