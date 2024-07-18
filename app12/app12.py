@@ -113,7 +113,61 @@ class MainWindow(QMainWindow):
         
 
 class EditDialog(QDialog):
-    pass
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Update Student Data")
+        self.setFixedWidth(300)
+        self.setFixedHeight(300)
+        
+        layout = QVBoxLayout()
+        
+        # Get student data from selected row
+        index = student_management_system.table.currentRow()
+        student_name = student_management_system.table.item(index, 1).text()
+        course_name = student_management_system.table.item(index, 2).text()
+        mobile = student_management_system.table.item(index, 3).text()
+        self.student_id = student_management_system.table.item(index, 0).text()
+        
+        # Add student name widget
+        self.student_name = QLineEdit(student_name)
+        self.student_name.setPlaceholderText("Name")
+        layout.addWidget(self.student_name)
+        
+        # Add combo box of courses
+        self.course_name = QComboBox()
+        courses = ["Biology", "Math", "Astronomy", "Physics"]
+        self.course_name.addItems(courses)
+        self.course_name.setCurrentText(course_name)
+        layout.addWidget(self.course_name)
+        
+        # Add mobile widget
+        self.mobile = QLineEdit(mobile)
+        self.mobile.setPlaceholderText("Mobile")
+        layout.addWidget(self.mobile)
+        
+        # Add a submit button
+        button = QPushButton("Update")
+        button.clicked.connect(self.update_student)
+        layout.addWidget(button)
+        
+        self.setLayout(layout)
+    
+    def update_student(self):
+        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
+                              host="localhost", database="my_db")
+        cursor = cnx.cursor(buffered=True)
+        my_query = '''UPDATE students SET name = %s, course = %s, mobile = %s WHERE id = %s;'''
+        cursor.execute(my_query, 
+                       (self.student_name.text(), 
+                        self.course_name.itemText(self.course_name.currentIndex()), 
+                        self.mobile.text(), 
+                        self.student_id))
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+        
+        # Refresh the table
+        student_management_system.load_data()
         
         
 class DeleteDialog(QDialog):
