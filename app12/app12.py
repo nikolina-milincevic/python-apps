@@ -22,6 +22,19 @@ SQL_PASSWORD = os.getenv("sql_password")
 # (6, "Paula Zephyr", "Astronomy", "4901011100");
 
 
+class DatabaseConnection():
+    def __init__(self, host_name="localhost", user_name=SQL_USER, password_sql=SQL_PASSWORD, database_name="my_db"):
+        self.database_name = database_name
+        self.host_name = host_name
+        self.user_name = user_name
+        self.password_sql = password_sql
+        
+    def connect(self):
+        connection = mysql.connector.connect(user=self.user_name, password=self.password_sql,
+                              host=self.host_name, database=self.database_name)
+        return connection
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -81,8 +94,7 @@ class MainWindow(QMainWindow):
         
     
     def load_data(self):
-        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
-                              host="localhost", database="my_db")
+        cnx = DatabaseConnection().connect()
         cursor = cnx.cursor(buffered=True)
         my_query = '''SELECT * FROM students;'''
         cursor.execute(my_query)
@@ -170,8 +182,7 @@ class EditDialog(QDialog):
         self.setLayout(layout)
     
     def update_student(self):
-        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
-                              host="localhost", database="my_db")
+        cnx = DatabaseConnection().connect()
         cursor = cnx.cursor(buffered=True)
         my_query = '''UPDATE students SET name = %s, course = %s, mobile = %s WHERE id = %s;'''
         cursor.execute(my_query, 
@@ -210,8 +221,7 @@ class DeleteDialog(QDialog):
         # Get selected row index and student id 
         index = student_management_system.table.currentRow()
         student_id = student_management_system.table.item(index, 0).text()
-        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
-                              host="localhost", database="my_db")
+        cnx = DatabaseConnection().connect()
         cursor = cnx.cursor(buffered=True)
         my_query = '''DELETE FROM students WHERE id = %s;'''
         cursor.execute(my_query, (student_id, ))
@@ -267,8 +277,7 @@ class InsertDialog(QDialog):
         course = self.course_name.itemText(self.course_name.currentIndex())
         mobile = self.mobile.text()
         print(name, course, mobile)
-        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
-                              host="localhost", database="my_db")
+        cnx = DatabaseConnection().connect()
         cursor = cnx.cursor(buffered=True)
         my_query = '''INSERT INTO students (name, course, mobile) VALUES (%s, %s, %s);'''
         cursor.execute(my_query, (name, course, mobile))
@@ -301,8 +310,7 @@ class SearchDialog(QDialog):
         
     def search(self):
         name = self.student_name.text()
-        cnx = mysql.connector.connect(user=SQL_USER, password=SQL_PASSWORD,
-                              host="localhost", database="my_db")
+        cnx = DatabaseConnection().connect()
         cursor = cnx.cursor(buffered=True)
         my_query = '''SELECT * FROM students WHERE name = %s;'''
         cursor.execute(my_query, (name,))
