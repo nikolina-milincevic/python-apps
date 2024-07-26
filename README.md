@@ -31,7 +31,7 @@ Application that books a hotel and makes a reservation with a reservation ticket
 student management system with PyQt6.
 Application that shows students from a database in mysql, with ability to add students, edit and delete. 
 ### App 14
-chatbot.
+chatbot app.
 Application with a simple gui for a chatbot using openai. For this app to work, one should write a valid api key in line 8 of backend.py file.
 
 ### Other small projects:
