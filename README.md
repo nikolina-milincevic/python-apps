@@ -33,6 +33,9 @@ Application that shows students from a database in mysql, with ability to add st
 ### App 14(15)
 chatbot app.
 Application with a simple gui for a chatbot using openai. For this app to work, one should write a valid api key in line 8 of backend.py file.
+### App 16
+online application form.
+Application contains online form with input fields and buttons where the user puts values. The app then accesses the input data and stores it in the database.
 
 ### Other small projects:
 
