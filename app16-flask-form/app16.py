@@ -29,6 +29,11 @@ def index():
         date = request.form["date"]
         occupation = request.form["occupation"]
         
+        form = Form(first_name=first_name, last_name=last_name, 
+                    email=email, date=date, occupation=occupation)
+        db.session.add(form)
+        db.session.commit()
+        
     return render_template("index.html")
 
 
