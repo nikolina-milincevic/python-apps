@@ -13,8 +13,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{SQL_USER}:{SQL_PASSWO
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = "app8flask@gmail.com"
-app.config["MAIL_PASSWORD"] = "soqlvetjthqkaqcx"
+app.config["MAIL_USERNAME"] = "somethingsomething@gmail.com"
+app.config["MAIL_PASSWORD"] = "mypassword"
 
 db = SQLAlchemy(app)
 
