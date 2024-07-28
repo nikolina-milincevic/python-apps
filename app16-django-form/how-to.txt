@@ -1,0 +1,18 @@
+>> pip install django
+>> django-admin startproject mysite .
+if you want to make this project in another folder, write first >> cd name-of-folder-or-path
+
+now you have a project. to make an app, write
+>> python manage.py startapp name_of_the_app
+in my case, I need to write python3.10 as the first word
+
+mysite contains configuration files for the project
+name_of_the_app contains configuration files for the app
+
+to run the app we write
+>> python manage.py runserver     OR python3.10
+
+
+to write the changes from models (eg. database creation)
+>> python manage.py makemigratios
+>> python manage.py migrate
