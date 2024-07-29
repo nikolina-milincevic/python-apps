@@ -1,4 +1,5 @@
 from django.db import models
+# All this is model for the database table
 
 
 class Form(models.Model):
