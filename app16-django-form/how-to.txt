@@ -16,3 +16,8 @@ to run the app we write
 to write the changes from models (eg. database creation)
 >> python manage.py makemigratios
 >> python manage.py migrate
+
+
+how to make an admin
+>> python manage.py createsuperuser
+follow the terminal and create a user name and a password
